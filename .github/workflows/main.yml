@@ -38,7 +38,13 @@ jobs:
         run: sh wait.sh
 
       - name: Check the Hub
-        run: curl http://localhost:4444/ui
+        run: curl http://localhost:4444/ui\
+
+      - name: Install Selenium client
+        run: pip install -U selenium
+
+      - name: run test
+        run: python tests/hello_example.py
 
       - name: stop docker
         run: docker stop docker-apache
