@@ -29,7 +29,7 @@ jobs:
           echo "URL=$URL" >> $GITHUB_ENV
 
       - name: Check AUT URL
-        run: curl ${{ env.URL }}st
+        run: curl ${{ env.URL }}
 
       - name: stop docker
         run: docker stop docker-apache
