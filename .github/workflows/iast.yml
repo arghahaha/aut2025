@@ -22,7 +22,6 @@ jobs:
         with:
             sarif_file: results.sarif
 
-jobs:
   dast:
     name: DAST
     permissions: write-all
