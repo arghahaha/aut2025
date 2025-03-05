@@ -6,6 +6,23 @@ on:
       - master
 
 jobs:
+  sast:
+    name: Psalm
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Psalm Security Scan
+        uses: docker://ghcr.io/psalm/psalm-security-scan
+
+      - name: Import Security Analysis results into GitHub Security Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+            sarif_file: results.sarif
+
+jobs:
   dast:
     name: DAST
     permissions: write-all
@@ -35,8 +52,7 @@ jobs:
         uses: hermanka/action-full-scan@master
         with:
             target: ${{ env.URL }}
-            network_name: zap-isolated  # Menggunakan nama yang lebih aman
-          
+            network_name: zap-isolated
 
       - name: stop docker
         run: docker stop docker-apache
